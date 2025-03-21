@@ -7,4 +7,4 @@ if __name__ == "__main__":
     print("A =", A)
     print("3rd element of 2nd row: ", A[1][2])  # 3rd element of 2nd row
     print("Second row: ", A[1, :])  # 2nd row
-    print("Third column: ", A[:, 2])
+    print("Third column: ", A[:, 2])#odio questa app
