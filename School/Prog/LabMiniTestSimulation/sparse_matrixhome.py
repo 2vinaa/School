@@ -74,14 +74,13 @@ class SparseMatrix:
 
         return newmatrix
 
-    def multiply(self, o):
-        assert (self._cols == o._cols and self._rows == o._rows), "These arent valid matrix"
-        newmatrix = SparseMatrix(self._rows, self._cols)
+    def multiply(self, other_matrix): #Matrix Cross Product
+        self._cols == other_matrix._rows, "Incompatible matrix dimensions for multiplication"
+        result = SparseMatrix(self._rows, other_matrix._cols)
         for i in range(self._rows):
-            for j in range(self._cols):
-                newmatrix[i, j] = self[i, j] * o[i, j]
-
-        return newmatrix
+            for j in range(other_matrix._cols):
+                result[i, j] = sum(self[i, k] * other_matrix[k, j] for k in range(self._cols))
+        return  result
 
     def transpose(self):
 
