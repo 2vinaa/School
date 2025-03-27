@@ -109,20 +109,45 @@ class SparseMatrix:
         return self.subtract(other) #The time is O(n^2)
 
     def sort_values(self):
-        nonzero_values = [i.value for i in self._elements]
-        n = len(nonzero_values)
-        for i in range(n - 1):
-            for j in range(n - 1 - i):
-                if nonzero_values[j] > nonzero_values[j + 1]:
-                    nonzero_values[j], nonzero_values[j + 1] = nonzero_values[j + 1], nonzero_values[j]
-        new_matrix = SparseMatrix(self.rows(), self.cols())
-        index = 0
-        for i in range(self.rows()):
-            for j in range(self.cols()):
-                if self[i, j] != 0:
-                    new_matrix[i, j] = nonzero_values[index]
-                    index += 1
-        return new_matrix #The time is O(n^2)
+        while True:
+            choice = int(input("Enter type of sort [Bubble: 1, Selection: 2, Insertion: 3]: "))
+            nonzero_values = [e.value for e in self._elements]
+            if choice == 1:
+
+                n = len(nonzero_values)
+                for i in range(n - 1):
+                    for j in range(n - 1 - i):
+                        if nonzero_values[j] > nonzero_values[j + 1]:
+                            nonzero_values[j], nonzero_values[j + 1] = nonzero_values[j + 1], nonzero_values[j]
+            elif choice == 2:
+                n = len(nonzero_values)
+                for i in range(n - 1):
+                    min_idx = i
+                    for j in range(i + 1, n):
+                        if nonzero_values[j] < nonzero_values[min_idx]:
+                            min_idx = j
+                    nonzero_values[i], nonzero_values[min_idx] = nonzero_values[min_idx], nonzero_values[i]
+
+            elif choice == 3:
+                n = len(nonzero_values)
+                for i in range(1, n):
+                    n = nonzero_values[i]
+                    j = i - 1
+                    while j >= 0 and nonzero_values[j] > n:
+                        nonzero_values[j + 1] = nonzero_values[j]
+                        j -= 1
+                    nonzero_values[j + 1] = n
+            else:
+                print("Incorrect input. Try again")
+
+            new_matrix = SparseMatrix(self.rows(), self.cols())
+            index = 0
+            for i in range(self.rows()):
+                for j in range(self.cols()):
+                    if self[i, j] != 0:
+                        new_matrix[i, j] = nonzero_values[index]
+                        index += 1
+            return new_matrix
 
 
 

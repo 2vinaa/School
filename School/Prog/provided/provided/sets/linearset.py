@@ -1,5 +1,4 @@
 # Implementation of the Set ADT container using a Python list.
-from School.Prog.counter import counter
 
 
 class Set:
@@ -25,7 +24,7 @@ class Set:
 
     # Adds a new unique element to the set.
     def add(self, element):
-        if element not in self:
+        if element not in self._theElements:
             self._theElements.append(element)
 
     # Removes an element from the set.

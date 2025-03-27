@@ -1,6 +1,6 @@
 # Test main function
 
-from abstractiontest import Date
+from School.Prog.Random.abstractiontest import Date
 
 if __name__ == "__main__":
     dates = [
