@@ -149,6 +149,28 @@ class SparseMatrix:
                         index += 1
             return new_matrix
 
+    def sort_values1(self):
+        non_zero_vals = [i.value for i in self._elements]
+        n = len(non_zero_vals)
+        for i in range(1,n):
+            value = non_zero_vals[i]
+            pos = i
+            while pos>0 and value <non_zero_vals[pos-1]:
+                non_zero_vals[pos] = non_zero_vals[pos-1]
+                pos -= 1
+                non_zero_vals[pos] = value
+
+
+        newmatrix = SparseMatrix(self._rows, self._cols)
+        index = 0
+        for i in range(self._rows):
+            for j in range(self._cols):
+                if self[i,j] != 0:
+                    newmatrix[i,j] = non_zero_vals[index]
+                    index += 1
+
+        return newmatrix
+
 
 
 
