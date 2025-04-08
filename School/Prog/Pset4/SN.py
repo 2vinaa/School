@@ -1,6 +1,6 @@
+from asyncio import current_task
 from datetime import datetime
 from LinkedList import LinkedList, ListNode
-
 
 class SocialNetwork:
     def __init__(self):
@@ -54,19 +54,46 @@ class SocialNetwork:
             return f"{user1} is not in SN"
 
 
-    def mutual_friends(self,user1, user2):
-        if self.user_list.search_linear(ListNode(user1)) is not None:
-            if self.user_list.search_linear(ListNode(user2)) is not None:
-                
+    def mutual_friends(self, user1, user2):
 
-            else:
-                return f"{user2} is not in SN"
-        else:
+        if self.user_list.search_linear(ListNode(user1)) is None:
             return f"{user1} is not in SN"
+        if self.user_list.search_linear(ListNode(user2)) is None:
+            return f"{user2} is not in SN"
+
+        mutual = LinkedList()
+        current1 = user1.friends.head
+        while current1 is not None:
+            if user2.friends.search_linear(current1) is not None:
+                mutual.append_constant(current1)
+            current1 = current1.next
+        return f"The Common Friend(s) are {mutual}"
 
 
+    def suggest_friends(self, user1, user2, user3):
+        if self.user_list.search_linear(ListNode(user1)) is None:
+            return f"{user1} is not in SN"
+        if self.user_list.search_linear(ListNode(user2)) is None:
+            return f"{user2} is not in SN"
+        if self.user_list.search_linear(ListNode(user3)) is None:
+            return f"{user3} is not in SN"
 
 
+        suggested = LinkedList()
+        mutual = LinkedList()
+        current1 = user1.friends.head
+        while current1 is not None:
+            if user2.friends.search_linear(current1) is not None:
+                mutual.append_constant(current1)
+            current1 = current1.next
+
+        currmut = mutual.head
+        while currmut is not None:
+            if user3.friends.search_linear(currmut) is None:
+                if currmut.data != user3.username:
+                    suggested.append_constant(ListNode(currmut))
+            currmut = currmut.next
+        return f"The suggested friend(s) are: {suggested}"
 
 class User:
     def __init__(self,username, name, age):
@@ -122,15 +149,31 @@ class User:
 
 if __name__ == "__main__":
 
-    User1 = User("Vinaa", "Federico", 19)
-    User2 = User("LignanoSabbiador", "Emanuele", 20)
-    User3 = User("LordLux", "Lorenzo", 20)
-
-    SN = SocialNetwork()
-    SN.add_users(User1)
-    SN.add_users(User2)
+        SN = SocialNetwork()
 
 
-    print(SN.get_user(ListNode(User3)))
-    SN.add_friendship(User1, User2)
-    print(SN)
+        User1 = User("Vinaa", "Federico", 19)
+        User2 = User("LignanoSabbiador", "Emanuele", 20)
+        User3 = User("LordLux", "Lorenzo", 20)
+        User4 = User("AlfredoBonaventura", "Salvo", 23)
+        User5 = User("Misma", "Luka", 23)
+
+
+        SN.add_users(User1)
+        SN.add_users(User2)
+        SN.add_users(User4)
+        SN.add_users(User5)
+        SN.add_users(User3)
+
+
+
+        print(SN.get_user(ListNode(User3)))
+        SN.add_friendship(User1, User2)
+        SN.add_friendship(User1, User5)
+        SN.add_friendship(User2, User5)
+        SN.add_friendship(User1, User4)
+        SN.add_friendship(User4, User2)
+        print(SN)
+        print(SN.mutual_friends(User1, User2))
+        print(SN.suggest_friends(User1,User2, User4))
+
