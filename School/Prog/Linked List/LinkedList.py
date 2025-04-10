@@ -1,5 +1,3 @@
-# Node class for singly linked list
-from operator import index
 
 
 class ListNode:
