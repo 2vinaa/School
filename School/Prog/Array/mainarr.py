@@ -1,4 +1,4 @@
-from arr import Array, _ArrayIterator, Array2D
+from School.Prog.Hash.arr import Array, _ArrayIterator, Array2D
 
 
 if __name__ == "__main__":

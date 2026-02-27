@@ -30,11 +30,6 @@ def subpops(map):
 
 
 
-
-
-
-
-
 if __name__ == "__main__":
 
     funny_map = SparseMatrix(4,4)

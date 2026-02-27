@@ -1,10 +1,22 @@
 import numpy as np
+from matplotlib import pyplot as plt
 
 if __name__ == "__main__":
 
 
-    A = np.array([[2, -5, -11, 0], [-9, 4, 6, 13], [4, 7, 12, -2]])
-    print("A =", A)
-    print("3rd element of 2nd row: ", A[1][2])  # 3rd element of 2nd row
-    print("Second row: ", A[1, :])  # 2nd row
-    print("Third column: ", A[:, 2])#odio questa app
+    x_data = np.array([-2., -1., 1., 2.])
+    y_data = np.array([[4.], [5.], [1.], [8.]])
+    A = np.vander(x_data)
+    p = np.linalg.solve(A,y_data)
+
+    plt.plot(x_data,y_data,"r*")
+    x_new = np.linspace(x_data[0] - 1, x_data[len(x_data) - 1] + 1)
+    y_new = np.polyval(p, x_new)
+    plt.plot(x_new, y_new, 'b--')
+    plt.grid(color='pink', linestyle='solid', linewidth=0.5)
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.title('Poly interp with Vandermonde')
+    plt.legend(['data', 'Poly interp'])
+    plt.show()
+

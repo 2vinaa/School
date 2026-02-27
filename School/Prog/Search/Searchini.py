@@ -12,8 +12,6 @@ def binary_search(theValues, target):
         else:
             low = mid + 1
 
-
-
     return False
 
 
